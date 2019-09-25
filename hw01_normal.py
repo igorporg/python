@@ -25,7 +25,7 @@ _author__ = 'Igor A.Provorov'
 # import math
 # math.sqrt(4) - вычисляет корень числа 4
 
-print("HOMEWORK 1")
+print("HOMEWORK 1 Normal")
 
 while 1==1:
     print("Задача-1")
