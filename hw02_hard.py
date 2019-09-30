@@ -55,7 +55,7 @@
 # Вход: 11
 # Выход: 5 3
 
-print("HOMEWORK 2 Easy")
+print("HOMEWORK 2 Hard")
 while 1:
     print("Задача-1")
     print("Задача-2")
@@ -90,7 +90,43 @@ while 1:
     # Задача-3
     if do == "3":
         print("Задача-3")
-        num = input("Введите номер комнаты от 1-2 000 000 000 : ")
+        while 1:
+            num = int(input("Введите номер комнаты в диапозоне от 1 до 2 000 000 000 : "))
+            if num > 2000000000 or num == 0:
+                print("Вы ввели некорректные данные, пожалуйста введите заново.")
+                continue
+            i = 2           # Шаг 1
+            flat = 1        # Квартира
+            floor = 1       # Этаж
+            found = False   # Индикатор
+            while not found:  # Основной цикл итерации
+                # print ("i = ", i)
+                # print("floor = ", floor)
+                if num > flat + i**2:
+                    flat += i ** 2  # складываем на каждом шаге количество квартир 1 + 5 + 14 + 30 и т.д.
+                else:
+                    floor = int((1 + i) * i / 2) # Вычисляем последний этаж исходя из формулы суммы ариф.прогрессии 1+2+3+4+5 и т.д.
+                    while not num == flat and not found:
+                        list_flats = {y + 1 for y in range(flat, flat + i**2)}
+                        found = True
+                i += 1  # Итерация
+            iteration = i
+            # print("flat - последняя кавртира на пердыдущей итерации = ", flat)
+            # print ("Шаг итерации: ", iteration)
+            # print (list_flats)
+            # Ищем позицию квартиры в полученным множестве a на этапе итерации iteration
+            number = 1
+            for n in list_flats:
+                if num == n:
+                    break
+                if number == iteration - 1:
+                    number = 1
+                else:
+                    number += 1
+
+            print("Этаж квартиры = ", floor)
+            print("Порядковый номер квартиры на этаже - ", number)
+
         print("********************")
 
     if do == "0":
