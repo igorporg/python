@@ -27,7 +27,7 @@ _author__ = 'Igor A.Provorov'
 # Даны четыре точки А1(х1, у1), А2(x2 ,у2), А3(x3 , у3), А4(х4, у4).
 # Определить, будут ли они вершинами параллелограмма.
 
-print("HOMEWORK 2 normal")
+print("HOMEWORK 3 normal")
 
 while 1:
     print("Задача-1")
@@ -39,91 +39,86 @@ while 1:
     # Задача-1
     if do == "1":
         print("Задача-1")
-        import random
-        import math
-        s1 = []
-        s2 = []
-        # генерим список из чисел в 50 штук для верности
-        for i in range(50):
-             s1.append(random.randint(-100, 100))
-        print("Список исходный (сгенерированный)", s1)
-        i = 0
-        for x in s1:
-            # Выполняем проверку условия для вычисления целого корня
-            if x > 0 and not (math.sqrt(x) % int(math.sqrt(x))):
-                # Добавляем в новый список
-                 s2.append(int(math.sqrt(x)))
-            i+=1
-        print("Новый список из корней исходного списка:", s2)
+        def fibonacci(n, m):
+            if m > n > 0:
+                i = 2
+                f = [1,1]
+                while i < m:
+                    f.append(f[i-1] + f[i-2])
+                    i+=1
+                return f[n:]
+            else:
+                return False
+
+        print(fibonacci(9,15))
+        print(fibonacci(20, 15))
         print("********************")
 
     # Задача-2
     if do == "2":
         print("Задача-2")
-        date = "02.11.2013"
-        month = {
-            "01" : "января",
-            "02": "февраля",
-            "03": "марта",
-            "04": "апреля",
-            "05": "мая",
-            "06": "июня",
-            "07": "июля",
-            "08": "августа",
-            "09": "сентября",
-            "10": "октября",
-            "11": "ноября",
-            "12": "декабря"
-        }
-        day = {
-            "01" : "первое",
-            "02": "второе",
-            "03": "третье",
-            "04": "четвертое",
-            "05": "пятое",
-            "06": "шестое",
-            "07": "седьмое",
-            "08": "восьмое",
-            "09": "девятое",
-            "10": "десятое",
-            "11": "одиннадцатое",
-            "12": "двенадцатое"
-# и т.д.
-        }
-        d = date[:2]
-        m = date[3:5]
-        y = date[-4:]
-        print("Начальная дата: ", date)
-        print("Полученная дата", day[d], month[m], y, "года")
+        def sort_to_max(origin_list):
+            n = len(origin_list)
+            list = origin_list.copy()
+            i = 0
+            while i <= n - 1:
+                j = 0
+                while j < n - i - 1:
+                    if list[j] > list[j + 1]:
+                        k = list[j]
+                        list[j] = list[j + 1]
+                        list[j + 1] = k
+                    j += 1
+                i += 1
+            return list
+
+        print('Отсортированный список: ');
+        print(sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0]))
         print("********************")
 
     # Задача-3
     if do == "3":
         print("Задача-3")
-        import random
-        s1 = []
-        n = 10
-        # генерим список из чисел в 50 штук для верности
-        for i in range(n):
-             s1.append(random.randint(-100, 100))
-        print("Список сгенерированный", s1)
+        def my_filter(func, list):
+            pass
         print("********************")
 
     # Задача-4
     if do == "4":
         print("Задача-4")
-        s1 = [1, 2, 4, 5, 6, 2, 5, 2]
-        s2 = []
-        s3 = []
-        print("Список исходный", s1)
-        for n in s1:
-           if not s2.count(n):
-               s2.append(n)
-        for n in s2:
-           if s1.count(n) == 1:
-               s3.append(n)
-        print(s2)
-        print(s3)
+
+        def parallelogram(*args):
+            if len(args) > 4:
+                return False
+
+            # функция вычисления отрезка между двумя координатами p1, p2
+            def get_length(p1, p2):
+                import math
+                sum = (p1[0] ** 2 - p2[0] ** 2) + (p1[1] ** 2 - p2[1] ** 2)
+                if  sum > 0:
+                    d = math.sqrt(sum)
+                else: d = 0
+                return d
+
+            point = []
+            for i in args:
+                point.append(i)
+            lengths = []
+            i = 0
+            while i < 4:
+                for p in point:
+                    l = get_length(point[i] , p)
+                    if l > 0:
+                        lengths.append(l)
+                i += 1
+
+            return True
+
+        А1 = (3, 7)
+        А2 = (5, 3)
+        А3 = (9, 9)
+        А4 = (11, 5)
+        print(parallelogram(А1, А2, А3, А4))
         print("********************")
 
     if do == "0":
