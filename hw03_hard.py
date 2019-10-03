@@ -32,7 +32,7 @@
 # Чтобы получить список больших букв русского алфавита:
 # print(list(map(chr, range(ord('А'), ord('Я')+1))))
 
-print("HOMEWORK 2 Easy")
+print("HOMEWORK 4 Hard")
 while 1:
     print("Задача-1")
     print("Задача-2")
@@ -42,32 +42,19 @@ while 1:
     # Задача-1
     if do == "1":
         print("Задача-1")
-        equation = 'y = -12x + 11111140.2121' # y = kx + b
-        x = 2.5
-        k = 0
-        b = 0
-        # Получаем значения коэффициентов k и b
-        pos1 = equation.index('=') + 1
-        pos2 = equation.index('x')
-        pos3 = equation.index('+') + 1
-        k = float(equation[pos1:pos2])
-        b = float(equation[pos3:])
-        print("Коэффициенты k =", k," b =", b)
-        # Вычисляем уравнение
-        print("Результат выражения: y = ", k * x + b)
+
         print("********************")
 
     # Задача-2
     if do == "2":
         print("Задача-2")
-        date = "02.11.2013"
 
         print("********************")
 
     # Задача-3
     if do == "3":
         print("Задача-3")
-        num = input("Введите номер комнаты от 1-2 000 000 000 : ")
+
         print("********************")
 
     if do == "0":

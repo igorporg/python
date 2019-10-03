@@ -112,7 +112,12 @@ while 1:
                         lengths.append(l)
                 i += 1
 
-            return True
+            # Проверяем повторения по длине отрезков в списке lengths, если паралелограм то должно быть три повторения
+            l = list(set(lengths))
+            if len(l) == 4:
+                return True
+            else:
+                return False
 
         А1 = (3, 7)
         А2 = (5, 3)
