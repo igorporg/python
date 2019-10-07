@@ -83,15 +83,21 @@ while 1:
         str_big = ""
         for s in line_2:
             if s in lowcase:
+                # если маленьких букв 2 или больше, больших 4 или больше  aaBBBBa то заносим в новый список
                 if len(str_small) >= 2 and len(str_big) >= 4:
                     list.append(str_big[:-2])
                     str_small = ""
-                else:
-                    str_big = ""
+                # если маленьких букв 2 или больше, больших меньше 4-х  aaBBBa то обнуляем
+                elif len(str_small) >= 2 and len(str_big) < 4:
+                    str_small = ""
+                str_big = ""
                 str_small = str_small + s
 
             else:
+                if len(str_small) < 2:
+                    str_small = ""
                 str_big = str_big + s
+
 
         print(list)
 
@@ -110,9 +116,44 @@ while 1:
         # 2500-значное произвольное число.
         # Найдите и выведите самую длинную последовательность одинаковых цифр
         # в вышезаполненном файле.
+        import os
+        import random
 
+        filename = input("Введите имя файла: ")
+        filename = "numbers.txt"
+        DIR = 'files'
+        path = os.path.join(DIR, filename)
+        f = open(path, 'w', encoding='UTF-8')
+        s = ""
+        i = 0
+        while i < 2500:
+            s = s + str(random.randint(0,9))
+            i+= 1
+
+        f.write(s)
+        f.close()
+        f = open(path, 'r', encoding='UTF-8')
+        string = f.read()
+
+        import re
+        list = []
+        i = 0
+        while i <= 9:
+            pattern = str(i) + "{2,}"
+            found = re.findall(pattern, string)
+            list += found
+            i+=1
+        print(list) # Список с повторяющимися цифрами
+
+        l = 0
+        str = ""
+        for s in list:
+            if l < len(s):
+                l = len(s)
+                str = s
+
+        print("Элемент списка с максимальным количеством цифр", str)
         print("********************")
-
 
     if do == "0":
         break
