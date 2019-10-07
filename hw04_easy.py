@@ -1,83 +1,79 @@
 _author__ = 'Igor A.Provorov'
 
+# Все задачи текущего блока решите с помощью генераторов списков!
+
 # Задание-1:
-# Напишите функцию, округляющую полученное произвольное десятичное число
-# до кол-ва знаков (кол-во знаков передается вторым аргументом).
-# Округление должно происходить по математическим правилам (0.6 --> 1, 0.4 --> 0).
-# Для решения задачи не используйте встроенные функции и функции из модуля math.
-
-# def my_round(number, ndigits):
-#     pass
-#
-#
-# print(my_round(2.1234567, 5))
-# print(my_round(2.1999967, 5))
-# print(my_round(2.9999967, 5))
-
+# Дан список, заполненный произвольными целыми числами.
+# Получить новый список, элементы которого будут
+# квадратами элементов исходного списка
+# [1, 2, 4, 0] --> [1, 4, 16, 0]
 
 # Задание-2:
-# Дан шестизначный номер билета. Определить, является ли билет счастливым.
-# Решение реализовать в виде функции.
-# Билет считается счастливым, если сумма его первых и последних цифр равны.
-# !!!P.S.: функция не должна НИЧЕГО print'ить
+# Даны два списка фруктов.
+# Получить список фруктов, присутствующих в обоих исходных списках.
 
-# def lucky_ticket(ticket_number):
-#     pass
-#
-#
-# print(lucky_ticket(123006))
-# print(lucky_ticket(12321))
-# print(lucky_ticket(436751))
-#
+# Задание-3:
+# Дан список, заполненный произвольными числами.
+# Получить список из элементов исходного, удовлетворяющих следующим условиям:
+# + Элемент кратен 3
+# + Элемент положительный
+# + Элемент не кратен 4
 
-print("HOMEWORK 3 Easy")
+print("HOMEWORK 4 Easy")
 while 1:
     print("Задача-1")
     print("Задача-2")
+    print("Задача-3")
     do = input("Введите номер задачи (0 - Выход): ")
 
+    # Задание-1:
+    # Дан список, заполненный произвольными целыми числами.
+    # Получить новый список, элементы которого будут
+    # квадратами элементов исходного списка
+    # [1, 2, 4, 0] --> [1, 4, 16, 0]
     if do == "1":
         print("Задача-1")
-        def my_round(number, ndigits):
-            if number is float and ndigits is int:
-                list = str(number).split(".")
-                celoe = int(list[0])
-                drobnoe = int(list[1][:ndigits+1])
-                ostatok = float("0." + list[1][ndigits + 1:])
-                if ostatok > 0.5:
-                    drobnoe += 1
-                    if len(str(drobnoe))> 6:
-                        celoe += 1
-                        drobnoe = 0
-            else:
-                return False
-            return float(str(celoe) + "." + str(drobnoe))
-
-        print(my_round(2.1234567, 5))
-        print(my_round(2.1999967, 5))
-        print(my_round(2.9999967, 5))
-        print(my_round(5.9999997, 5))
+        #list1 = [1, 2, 4, 0]
+        list1 = [random.randint(0, 20) for _ in range(10)]
+        list2 = []
+        kvadrat = lambda x: x ** 2
+        for l in list1:
+            list2.append(kvadrat(l))
+        print("Исходный список: ", list1)
+        print("Новый список из квадратов старого: ", list2)
         print("********************")
 
-    # Задача-2
+    # Задание-2:
+    # Даны два списка фруктов.
+    # Получить список фруктов, присутствующих в обоих исходных списках.
     if do == "2":
         print("Задача-2")
-        def lucky_ticket(ticket_number):
-            if len(str(ticket_number)) == 6:
-                n1 = str(ticket_number)[:3]
-                n2 = str(ticket_number)[3:]
-                sum_n1 = int(n1[0]) + int(n1[1]) + int(n1[2])
-                sum_n2 = int(n2[0]) + int(n2[1]) + int(n2[2])
-                if sum_n1 == sum_n2:
-                    return True
-                else:
-                    return False
-            else:
-                return False
+        fruit1 = ["apple", "lemon", "pear", "peach"]
+        fruit2 = ["apricot", "apple", "bananas", "plum", "grapes"]
+        print("Список 1: ", fruit1)
+        print("Список 2: ", fruit2)
+        print("Общий список уникальных элементов: ", list(set(fruit1 + fruit2)))
 
-        print(lucky_ticket(123006))
-        print(lucky_ticket(12321))
-        print(lucky_ticket(436751))
+        print("********************")
+
+    # Задание-3:
+    # Дан список, заполненный произвольными числами.
+    # Получить список из элементов исходного, удовлетворяющих следующим условиям:
+    # + Элемент кратен 3
+    # + Элемент положительный
+    # + Элемент не кратен 4
+    if do == "3":
+        print("Задача-2")
+        import random
+        # list1 = [35, 12, -17, 0, 18, 36, -25, 9, 16]
+        list1 = [random.randint(-20, 20) for _ in range(10)]
+        list2 = []
+        for el in list1:
+            if el > 0 and el % 3 == 0 and el % 4 != 0:
+                list2.append(el)
+
+        print("Список 1: ", list1)
+        print("Список 2: ", list2)
         print("********************")
 
     if do == "0":
