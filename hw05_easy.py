@@ -58,7 +58,24 @@ while 1:
     # Задание-3:
     if do == "3":
         print("Задача-2")
+        import sys
+        import os
+        import shutil
 
+        file_name = os.path.basename(sys.argv[0])
+
+        print("Дублирование текущего файла")
+        print("Текущий файл: ", file_name)
+        answ = input("Хотите продублировать? Y / N : ")
+        if answ == "Y":
+            copyfile = file_name + '.copy'
+            shutil.copy(file_name, copyfile)
+            if os.path.exists(copyfile):
+                print("Файл ", copyfile, " был успешно создан")
+            else:
+                print("Возникли проблемы копирования")
+        else:
+            continue
         print("********************")
 
     if do == "0":
