@@ -22,13 +22,37 @@ while 1:
     # Задание-1:
     if do == "1":
         print("Задача-1")
+        import os
+        dirs = []
+        for n in range(1, 10):
+            dir_name = "dir_" + str(n)
+            dir_path = os.path.join(os.getcwd(), dir_name)
+            dirs.append(dir_path)
+            try:
+                os.mkdir(dir_path)
+                print("Директория создана", dir_name)
+            except FileExistsError:
+                print("Директория уже существует в текущей папке")
+
+        print("Желаете удалить папки?")
+        delete = input("Yes / No : ")
+        if delete == "Yes":
+            for dir_name in dirs:
+                try:
+                    os.rmdir(dir_name)
+                    print("Директория ", dir_name," удалена в текущей папке")
+                except FileExistsError:
+                    print("Директория ", dir_name," не существует, и не может быть удалена!")
 
         print("********************")
 
     # Задание-2:
     if do == "2":
         print("Задача-2")
-
+        import os
+        d = os.path.join(os.getcwd())
+        subfolders = [f.path for f in os.scandir(d) if f.is_dir()]
+        print(subfolders)
         print("********************")
 
     # Задание-3:
