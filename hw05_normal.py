@@ -17,3 +17,84 @@ _author__ = 'Igor A.Provorov'
 
 print("HOMEWORK 5 normal")
 
+import os
+import sys
+
+#print('sys.argv = ', sys.argv)
+
+def print_help():
+    print("help - получение справки")
+    print("gotodir <dir_name> - переход в папку")
+    print("listdir - просмотр содержимого текущей папки")
+    print("deldir <dir_name> - удаление папки")
+    print("mkdir <dir_name> - создание папки")
+
+def goto_dir():
+    if not dir_name:
+        print("Необходимо указать имя директории вторым параметром")
+        return
+    dir_path = os.path.join(os.getcwd(), dir_name)
+
+    try:
+        os.chdir(dir_path)
+        print('Перешли в директорию {}'.format(dir_path))
+    except FileExistsError:
+        print('директория {} не существует'.format(dir_name))
+
+def list_dir():
+    dir_path = os.path.join(os.getcwd())
+    files = [f.path for f in os.scandir(dir_path)]
+    print("Содержимое текущего каталога {} :".format(dir_path))
+    print(files)
+
+
+def del_dir():
+    if not dir_name:
+        print("Необходимо указать имя директории вторым параметром")
+        return
+    dir_path = os.path.join(os.getcwd(), dir_name)
+
+    try:
+        os.remove(dir_path)
+        print('Выполнено удаление директории {}'.format(dir_path))
+    except FileExistsError:
+        print('директория {} не может быть удалена'.format(dir_name))
+
+
+def make_dir():
+    if not dir_name:
+        print("Необходимо указать имя директории вторым параметром")
+        return
+    dir_path = os.path.join(os.getcwd(), dir_name)
+
+    try:
+        os.mkdir(dir_path)
+        print('директория {} создана'.format(dir_name))
+    except FileExistsError:
+        print('директория {} уже существует'.format(dir_name))
+
+
+do = {
+    "help": print_help,
+    "gotodir": goto_dir,
+    "listdir": list_dir,
+    "deldir": del_dir,
+    "mkdir": make_dir
+}
+
+try:
+    dir_name = sys.argv[2]
+except IndexError:
+    dir_name = None
+
+try:
+    key = sys.argv[1]
+except IndexError:
+    key = None
+
+if key:
+    if do.get(key):
+        do[key]()
+else:
+    print("Задан неверный ключ")
+    print("Укажите ключ help для получения справки")
