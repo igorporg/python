@@ -89,7 +89,7 @@ def show_cards(list):
 
 def edit_cards(list_of_numbers, number):
     if number in list_of_numbers:
-        pass
+        list_of_numbers[list_of_numbers.index(number)] = " -"
 
 def find_cards(list_of_numbers, number):
     if number in list_of_numbers:
@@ -97,6 +97,14 @@ def find_cards(list_of_numbers, number):
     else:
         return False
 
+def count_numbers(list_of_numbers):
+    i = 0
+    for n in list_of_numbers:
+        if type(n) is int:
+            i+=1
+    return i
+
+# Функция генерирует словарь вида 1:1, 2:2, 3:3 и т.д.
 def kegs_gen(kegs):
     return {x: x for x in range(1,kegs+1)}
 
@@ -105,6 +113,9 @@ def get_keg(bag_of_kegs):
     return bag_of_kegs.pop(n)
 
 
+##########################################################
+#  Старт игры
+##########################################################
 
 print("В мешке {} бочонков".format(KEGS))
 a = input("Начнем игру? y/n : ")
@@ -112,6 +123,8 @@ if a == "y":
     # Получаем списки случайных чисел для каждого игрока
     numbers_for_user = get_numbers()
     numbers_for_comp = get_numbers()
+    # Генерим мешочек с бочонками
+    bag_of_kegs = kegs_gen(KEGS)
 
     while 1:
 
@@ -128,13 +141,26 @@ if a == "y":
         print(card_for_comp)
         print('--------------------------')
 
-        bag_of_kegs = kegs_gen(KEGS)
         KEGS -= 1
         if KEGS < 0:
             break
+
+        print("Оставшееся количество чисел у игрока: ", count_numbers(numbers_for_user))
+        print("Оставшееся количество чисел у компьютера : ", count_numbers(numbers_for_comp))
+        print("")
+        if count_numbers(numbers_for_user) == 0:
+            print("Победил игрок!")
+            break
+        elif count_numbers(numbers_for_comp) == 0:
+            print("Победил компьютер!")
+            break
+
+        # Вытаскиваем бочонок из мешочка
         keg = get_keg(bag_of_kegs)
         print("Выпал бачонок с номером: {} ".format(keg))
+        print("Всего осталось {} бочонков в мешочке".format(len(bag_of_kegs)))
         y = input("Зачеркнуть совпашие числа в карточке? y/n :")
+        edit_cards(numbers_for_comp, keg)
 
         # Проверяем действия игрокан
         if y == "y":
@@ -150,7 +176,4 @@ if a == "y":
             else:
                 continue
 
-        edit_cards(numbers_for_comp, keg)
-
-else:
-    print("До встречи!")
+print("До встречи!")
