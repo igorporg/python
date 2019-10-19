@@ -46,6 +46,10 @@ _author__ = 'Igor A.Provorov'
 """
 import random
 
+# Количество бочонков в мешке
+KEGS = 90
+
+# получаем список чисел для игрока в лото
 def get_numbers(n = 15, max = 90):
     i = 1
     cartlist = []
@@ -58,6 +62,7 @@ def get_numbers(n = 15, max = 90):
         i+=1
     return cartlist
 
+# получаем списки чисел построчно разбавленных пробелами
 def get_cards(cartlist):
     i = 0
     list = []
@@ -68,6 +73,7 @@ def get_cards(cartlist):
         i+=1
     return list
 
+# получаем итоговую карточку игрока в виде строки
 def show_cards(list):
     card = ""
     for el1 in list.copy():
@@ -81,18 +87,70 @@ def show_cards(list):
         card = card + l + "\n"
     return card
 
+def edit_cards(list_of_numbers, number):
+    if number in list_of_numbers:
+        pass
 
-numbers_for_user = get_numbers()
-card_for_user = show_cards(get_cards(numbers_for_user))
-print('')
-print('------ Ваша карточка -----\n')
-print(card_for_user)
-print('--------------------------')
+def find_cards(list_of_numbers, number):
+    if number in list_of_numbers:
+        return True
+    else:
+        return False
+
+def kegs_gen(kegs):
+    return {x: x for x in range(1,kegs+1)}
+
+def get_keg(bag_of_kegs):
+    n = random.randint(1, len(bag_of_kegs))
+    return bag_of_kegs.pop(n)
 
 
-numbers_for_comp = get_numbers()
-card_for_comp = show_cards(get_cards(numbers_for_comp))
-print('')
-print('-- Карточка компьютера ---\n')
-print(card_for_comp)
-print('--------------------------')
+
+print("В мешке {} бочонков".format(KEGS))
+a = input("Начнем игру? y/n : ")
+if a == "y":
+    # Получаем списки случайных чисел для каждого игрока
+    numbers_for_user = get_numbers()
+    numbers_for_comp = get_numbers()
+
+    while 1:
+
+        # Выводим карточки игроков
+        card_for_user = show_cards(get_cards(numbers_for_user))
+        print('')
+        print('------ Ваша карточка -----\n')
+        print(card_for_user)
+        print('--------------------------')
+
+        card_for_comp = show_cards(get_cards(numbers_for_comp))
+        print('')
+        print('-- Карточка компьютера ---\n')
+        print(card_for_comp)
+        print('--------------------------')
+
+        bag_of_kegs = kegs_gen(KEGS)
+        KEGS -= 1
+        if KEGS < 0:
+            break
+        keg = get_keg(bag_of_kegs)
+        print("Выпал бачонок с номером: {} ".format(keg))
+        y = input("Зачеркнуть совпашие числа в карточке? y/n :")
+
+        # Проверяем действия игрокан
+        if y == "y":
+            if find_cards(numbers_for_user, keg):
+                edit_cards(numbers_for_user, keg)
+            else:
+                print("Вы проиграли!")
+                break
+        else:
+            if find_cards(numbers_for_user, keg):
+                print("Вы проиграли!")
+                break
+            else:
+                continue
+
+        edit_cards(numbers_for_comp, keg)
+
+else:
+    print("До встречи!")
